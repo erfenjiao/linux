@@ -1,52 +1,31 @@
 #include<stdio.h>
-int a[1000001],n;
-void quicksort(int left,int right)
-{
-    int i,j,temp,t;
-    temp=a[left];
-    i=left;
-    j=right;
-    if(left>right)
-        return ;
-    while(i!=j)
-    {
-        while(i<j && a[j]>=temp)
-            j--;
-        while(i<j && a[i]<=temp)
-            i++;
-        if(i<j)
-        {
-            t=a[i];
-            a[i]=a[j];
-            a[j]=t;
-        }
-    }
-    a[left]=a[i];
-    a[i]=temp;
-    quicksort(left,i-1);
-    quicksort(i+1,right);
-}
 int main()
 {
-    int i;
-    scanf("%d",&n);
-    for(i=1;i<=n;i++)
-    {
-        scanf("%d",&a[i]);
-    }
-    quicksort(1,n);
-    int h=1;
-    for(i=1;i<=n;i++)
-    {
-        if(a[1]==0)
-        {
-            continue;
-        }
-        if(a[i]!=h)
-        {
-            printf("%d  ",h);
-            return 0;
-        }
-        h++;
-    }
+	int n,i,j,t,a[100001],b[1000001],count;
+	while(scanf("%d",&n)!=EOF && n!=0)
+	{
+		for(i=0;i<n;i++)
+		scanf("%d %d",&a[i],&b[i]);
+		for(i=0;i<n-1;i++)
+			for(j=i+1;j<n;j++)
+			{
+				if(b[i]>b[j])
+				{
+					t=a[i];a[i]=a[j];a[j]=t;
+					t=b[i];b[i]=b[j];b[j]=t;
+					
+				}
+			}
+		t=b[0];
+		count =1;
+		for(i=1;i<n;i++)
+		{
+			if(t<=a[i])
+			{
+				count++;
+				t=b[i];
+			}
+		}
+		printf("%d",count); 
+	}
 }
